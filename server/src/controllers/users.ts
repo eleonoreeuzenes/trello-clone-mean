@@ -4,6 +4,7 @@ import { UserDocument } from '../types/user.interface';
 import { Error } from 'mongoose';
 import jwt from 'jsonwebtoken';
 import { secret } from '../config';
+import { ExpressRequestInterface } from '../types/expressRequest.interface';
 
 const normalizeUser = (user: UserDocument) => {
     const token = jwt.sign({ id: user.id, email:user.email}, secret);
@@ -50,6 +51,17 @@ export const login = async (req: Request, res: Response, next: NextFunction) => 
         }
 
         res.send(normalizeUser(user));
+    } catch (err) {
+        next(err);
+    }
+}
+
+export const getCurrentUser = async (req: ExpressRequestInterface, res: Response, next: NextFunction) => {
+    try {
+      if (!req.user) {
+          return res.sendStatus(401);
+      }
+        res.send(normalizeUser(req.user));
     } catch (err) {
         next(err);
     }
