@@ -30,7 +30,7 @@ export const register = async (req: Request, res: Response, next: NextFunction) 
   } catch (err) {
     if (err instanceof Error.ValidationError) {
         const messages = Object.values(err.errors).map((err) => err.message);
-        return res.status(422).json({ messages });
+        return res.status(422).json(messages);
     }
     next(err);
   }
