@@ -16,7 +16,8 @@ app.get('/', (req, res) => {
   res.send('Hello World');
 });
 
-app.post('/api/users', usersController.register);
+app.post('/api/register', usersController.register);
+app.post('/api/login', usersController.login);
 
 io.on('connection', () => {   
     console.log('socket connect');
