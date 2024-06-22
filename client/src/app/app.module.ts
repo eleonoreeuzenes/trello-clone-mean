@@ -8,6 +8,7 @@ import { AuthModule } from './auth/auth.module';
 import { HomeModule } from './home/home.module';
 import { AuthInterceptor } from './auth/services/authinterceptor.service';
 import { BoardsModule } from './boards/boards.module';
+import { InlineFormModule } from './shared/modules/inlineForm/inlineForm.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -17,7 +18,8 @@ import { BoardsModule } from './boards/boards.module';
     AuthModule,
     HttpClientModule,
     HomeModule,
-    BoardsModule
+    BoardsModule,
+    InlineFormModule
   ],
   providers: [
     {

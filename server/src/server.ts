@@ -24,6 +24,8 @@ app.post('/api/register', usersController.register);
 app.post('/api/login', usersController.login);
 app.get('/api/user', authMiddleware, usersController.getCurrentUser);
 app.get('/api/boards', authMiddleware, boardsController.getBoards);
+app.post("/api/boards", authMiddleware, boardsController.createBoard);
+
 
 mongoose.set('toJSON', {
     virtuals: true,
