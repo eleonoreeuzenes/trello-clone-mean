@@ -24,6 +24,7 @@ app.post('/api/register', usersController.register);
 app.post('/api/login', usersController.login);
 app.get('/api/user', authMiddleware, usersController.getCurrentUser);
 app.get('/api/boards', authMiddleware, boardsController.getBoards);
+app.get('/api/boards/:boardId', authMiddleware, boardsController.getBoard);
 app.post("/api/boards", authMiddleware, boardsController.createBoard);
 
 
