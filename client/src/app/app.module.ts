@@ -10,6 +10,7 @@ import { AuthInterceptor } from './auth/services/authinterceptor.service';
 import { BoardsModule } from './boards/boards.module';
 import { InlineFormModule } from './shared/modules/inlineForm/inlineForm.module';
 import { BoardModule } from './board/board.module';
+import { SocketService } from './shared/services/socket.service';
 
 @NgModule({
   declarations: [AppComponent],
@@ -28,7 +29,8 @@ import { BoardModule } from './board/board.module';
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,
       multi: true
-    }
+    },
+    SocketService,
   ],
   bootstrap: [AppComponent],
 })
