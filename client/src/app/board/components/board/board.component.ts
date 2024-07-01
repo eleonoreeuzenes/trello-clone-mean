@@ -4,10 +4,12 @@ import { combineLatest, filter, map, Observable } from 'rxjs';
 import { BoardsService } from 'src/app/shared/services/boards.service';
 import { ColumnsService } from 'src/app/shared/services/columns.service';
 import { SocketService } from 'src/app/shared/services/socket.service';
+import { TasksService } from 'src/app/shared/services/tasks.service';
 import { BoardInterface } from 'src/app/shared/types/board.interface';
 import { ColumnInterface } from 'src/app/shared/types/column.interface';
 import { ColumnInputInterface } from 'src/app/shared/types/columnInput.interface';
 import { SocketEventsEnum } from 'src/app/shared/types/socketEvents.enum';
+import { TaskInterface } from 'src/app/shared/types/task.interface';
 import { BoardService } from '../../services/board.service';
 
 @Component({
@@ -19,6 +21,7 @@ export class BoardComponent implements OnInit {
   data$: Observable<{
     board: BoardInterface;
     columns: ColumnInterface[];
+    tasks: TaskInterface[];
   }>;
 
   constructor(
@@ -27,7 +30,8 @@ export class BoardComponent implements OnInit {
     private router: Router,
     private boardService: BoardService,
     private socketService: SocketService,
-    private columnsService: ColumnsService
+    private columnsService: ColumnsService,
+    private tasksService: TasksService
   ) {
     const boardId = this.route.snapshot.paramMap.get('boardId');
 
@@ -39,10 +43,12 @@ export class BoardComponent implements OnInit {
     this.data$ = combineLatest([
       this.boardService.board$.pipe(filter(Boolean)),
       this.boardService.columns$,
+      this.boardService.tasks$,
     ]).pipe(
-      map(([board, columns]) => ({
+      map(([board, columns, tasks]) => ({
         board,
         columns,
+        tasks,
       }))
     );
   }
@@ -76,6 +82,9 @@ export class BoardComponent implements OnInit {
     this.columnsService.getColumns(this.boardId).subscribe((columns) => {
       this.boardService.setColumns(columns);
     });
+    this.tasksService.getTasks(this.boardId).subscribe((tasks) => {
+      this.boardService.setTasks(tasks);
+    });
   }
 
   createColumn(title: string): void {
@@ -84,5 +93,9 @@ export class BoardComponent implements OnInit {
       boardId: this.boardId,
     };
     this.columnsService.createColumn(columnInput);
+  }
+
+  getTasksByColumn(columnId: string, tasks: TaskInterface[]): TaskInterface[] {
+    return tasks.filter((task) => task.columnId === columnId);
   }
 }

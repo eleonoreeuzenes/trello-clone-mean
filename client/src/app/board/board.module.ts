@@ -5,6 +5,7 @@ import { AuthGuardService } from '../auth/services/authGuard.service';
 import { InlineFormModule } from '../shared/modules/inlineForm/inlineForm.module';
 import { TopbarModule } from '../shared/modules/topbar/topbar.module';
 import { ColumnsService } from '../shared/services/columns.service';
+import { TasksService } from '../shared/services/tasks.service';
 import { BoardComponent } from './components/board/board.component';
 import { BoardService } from './services/board.service';
 
@@ -24,6 +25,6 @@ const routes: Routes = [
     InlineFormModule,
   ],
   declarations: [BoardComponent],
-  providers: [BoardService, ColumnsService],
+  providers: [BoardService, ColumnsService, TasksService],
 })
 export class BoardModule {}
