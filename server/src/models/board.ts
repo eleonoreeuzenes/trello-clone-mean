@@ -1,5 +1,4 @@
 import {Schema, model} from 'mongoose';
-import { title } from 'process';
 import { BoardDocument } from '../types/board.interface';
 
 const boardSchema = new Schema<BoardDocument>({
