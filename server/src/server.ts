@@ -49,7 +49,7 @@ mongoose.set('toJSON', {
     }
 });
 
-io.use(async(socket: Socket, next) => {
+io.use(async (socket: Socket, next) => {
     try {
         const token = (socket.handshake.auth.token as string) ?? "";
         const data = jwt.verify(token.split(' ')[1], secret) as {
@@ -58,7 +58,7 @@ io.use(async(socket: Socket, next) => {
         };
         const user = await User.findById(data.id);
 
-        if(!user) {
+        if (!user) {
             return next(new Error('Authentication error'));
         }
         socket.user = user;
@@ -77,8 +77,11 @@ io.use(async(socket: Socket, next) => {
         columnsController.createColumn(io, socket, data);
     });
     socket.on(SocketEventsEnum.tasksCreate, (data) => {
-    tasksController.createTask(io, socket, data);
-  });
+        tasksController.createTask(io, socket, data);
+    });
+    socket.on(SocketEventsEnum.boardsUpdate, (data) => {
+        boardsController.updateBoard(io, socket, data);
+    });
 });
 
 mongoose.connect('mongodb://localhost:27017/trello').then(() => {
