@@ -9,8 +9,8 @@ I am building a Trello clone using MEAN Stack: Angular, Typescript, NodeJS, Expr
   - [Table of Contents](#table-of-contents)
     - [Installation](#installation)
     - [Usage](#usage)
-      - [Features](#features)
-      - [Contributing](#contributing)
+    - [Features](#features)
+    - [Contributing](#contributing)
 
 ### Installation
 
@@ -30,11 +30,11 @@ You can run a docker image of Mongodb using : `docker run -d -p 27017-27019:2701
 - to start the frontend use `npm run start` inside the `client` folder
 
 
-#### Features
+### Features
 
 ....
 
-#### Contributing
+### Contributing
 
 This project is not opened to contribution.
 
